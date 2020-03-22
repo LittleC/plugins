@@ -83,6 +83,13 @@ static void InterpretInfoWindow(id<FLTGoogleMapMarkerOptionsSink> sink, NSDictio
 - (void)setZIndex:(int)zIndex {
   _marker.zIndex = zIndex;
 }
+- (void)setShowInfoWindow:(BOOL)show {
+  if (show) {
+    [self showInfoWindow];
+  } else {
+    [self hideInfoWindow];
+  }
+}
 @end
 
 static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toDouble:data]; }
@@ -146,6 +153,11 @@ static void InterpretMarkerOptions(NSDictionary* data, id<FLTGoogleMapMarkerOpti
   NSNumber* zIndex = data[@"zIndex"];
   if (zIndex != nil) {
     [sink setZIndex:ToInt(zIndex)];
+  }
+  // should be after visible
+  NSNumber* showInfoWindow = data[@"showInfoWindow"];
+  if (showInfoWindow != nil) {
+    [sink setShowInfoWindow:ToBool(showInfoWindow)];
   }
 }
 

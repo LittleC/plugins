@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 class MarkerBuilder implements MarkerOptionsSink {
   private final MarkerOptions markerOptions;
   private boolean consumeTapEvents;
+  private boolean showInfoWindow;
 
   MarkerBuilder() {
     this.markerOptions = new MarkerOptions();
@@ -22,6 +23,10 @@ class MarkerBuilder implements MarkerOptionsSink {
 
   boolean consumeTapEvents() {
     return consumeTapEvents;
+  }
+
+  boolean showInfoWindow() {
+    return showInfoWindow;
   }
 
   @Override
@@ -83,5 +88,10 @@ class MarkerBuilder implements MarkerOptionsSink {
   @Override
   public void setZIndex(float zIndex) {
     markerOptions.zIndex(zIndex);
+  }
+
+  @Override
+  public void setShowInfoWindow(boolean show) {
+    showInfoWindow = show;
   }
 }

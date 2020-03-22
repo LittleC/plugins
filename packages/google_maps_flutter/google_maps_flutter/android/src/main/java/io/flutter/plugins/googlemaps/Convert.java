@@ -387,6 +387,10 @@ class Convert {
     if (zIndex != null) {
       sink.setZIndex(toFloat(zIndex));
     }
+    final Object showInfoWindow = data.get("showInfoWindow");
+    if (showInfoWindow != null) {
+      sink.setShowInfoWindow(toBoolean(showInfoWindow));
+    }
     final String markerId = (String) data.get("markerId");
     if (markerId == null) {
       throw new IllegalArgumentException("markerId was null");

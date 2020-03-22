@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.Polyline;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -70,6 +71,7 @@ final class GoogleMapController
         GoogleMap.OnMapClickListener,
         GoogleMap.OnMapLongClickListener,
         GoogleMap.OnMarkerDragListener,
+        GoogleMap.OnPoiClickListener,
         PlatformView {
 
   private static final String TAG = "GoogleMapController";
@@ -210,6 +212,7 @@ final class GoogleMapController
     googleMap.setOnCircleClickListener(this);
     googleMap.setOnMapClickListener(this);
     googleMap.setOnMapLongClickListener(this);
+    googleMap.setOnPoiClickListener(this);
     updateMyLocationSettings();
     markersController.setGoogleMap(googleMap);
     polygonsController.setGoogleMap(googleMap);
@@ -506,6 +509,15 @@ final class GoogleMapController
   @Override
   public void onCircleClick(Circle circle) {
     circlesController.onCircleTap(circle.getId());
+  }
+
+  @Override
+  public void onPoiClick(PointOfInterest poi) {
+    final Map<String, Object> arguments = new HashMap<>(3);
+    arguments.put("placeID", poi.placeId);
+    arguments.put("name", poi.name);
+    arguments.put("position", Convert.latLngToJson(poi.latLng));
+    methodChannel.invokeMethod("map#onPoiTap", arguments);
   }
 
   @Override

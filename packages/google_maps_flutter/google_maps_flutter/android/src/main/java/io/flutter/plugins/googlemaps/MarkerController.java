@@ -86,6 +86,15 @@ class MarkerController implements MarkerOptionsSink {
     marker.setZIndex(zIndex);
   }
 
+  @Override
+  public void setShowInfoWindow(boolean show) {
+    if (show) {
+      showInfoWindow();
+    } else {
+      hideInfoWindow();
+    }
+  }
+
   String getGoogleMapsMarkerId() {
     return googleMapsMarkerId;
   }

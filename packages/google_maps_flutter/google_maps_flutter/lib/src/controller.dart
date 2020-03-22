@@ -87,6 +87,10 @@ class GoogleMapController {
         _googleMapState
             .onLongPress(LatLng._fromJson(call.arguments['position']));
         break;
+      case 'map#onPoiTap':
+        _googleMapState
+            .onPoiTap(call.arguments['placeID'], call.arguments['name'], LatLng._fromJson(call.arguments['position']));
+        break;
       default:
         throw MissingPluginException();
     }

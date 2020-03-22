@@ -131,12 +131,13 @@ class MarkersController {
     MarkerBuilder markerBuilder = new MarkerBuilder();
     String markerId = Convert.interpretMarkerOptions(marker, markerBuilder);
     MarkerOptions options = markerBuilder.build();
-    addMarker(markerId, options, markerBuilder.consumeTapEvents());
+    addMarker(markerId, options, markerBuilder.consumeTapEvents(), markerBuilder.showInfoWindow());
   }
 
-  private void addMarker(String markerId, MarkerOptions markerOptions, boolean consumeTapEvents) {
+  private void addMarker(String markerId, MarkerOptions markerOptions, boolean consumeTapEvents, boolean showInfoWindow) {
     final Marker marker = googleMap.addMarker(markerOptions);
     MarkerController controller = new MarkerController(marker, consumeTapEvents);
+    controller.setShowInfoWindow(showInfoWindow);
     markerIdToController.put(markerId, controller);
     googleMapsMarkerIdToDartMarkerId.put(marker.getId(), markerId);
   }

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRotation:(CLLocationDegrees)rotation;
 - (void)setVisible:(BOOL)visible;
 - (void)setZIndex:(int)zIndex;
+- (void)setShowInfoWindow:(BOOL)show;
 @end
 
 // Defines marker controllable by Flutter.

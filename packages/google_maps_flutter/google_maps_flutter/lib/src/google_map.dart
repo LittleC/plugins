@@ -18,6 +18,11 @@ typedef void MapCreatedCallback(GoogleMapController controller);
 /// This is used in [GoogleMap.onCameraMove].
 typedef void CameraPositionCallback(CameraPosition position);
 
+/// Callback method for when a point of insterest is tapped.
+///
+/// This is used in [GoogleMap.onPoiTap].
+typedef void PoiTapCallback(String placeID, String name, LatLng position);
+
 /// A widget which displays a map with data obtained from the Google Maps service.
 class GoogleMap extends StatefulWidget {
   /// Creates a widget displaying data from Google Maps services.
@@ -54,6 +59,7 @@ class GoogleMap extends StatefulWidget {
     this.onCameraIdle,
     this.onTap,
     this.onLongPress,
+    this.onPoiTap,
   })  : assert(initialCameraPosition != null),
         super(key: key);
 
@@ -135,6 +141,9 @@ class GoogleMap extends StatefulWidget {
 
   /// Called every time a [GoogleMap] is long pressed.
   final ArgumentCallback<LatLng> onLongPress;
+
+  /// Called every time a POI is tapped.
+  final PoiTapCallback onPoiTap;
 
   /// True if a "My Location" layer should be shown on the map.
   ///
@@ -373,6 +382,15 @@ class _GoogleMapState extends State<GoogleMap> {
     assert(position != null);
     if (widget.onLongPress != null) {
       widget.onLongPress(position);
+    }
+  }
+
+  void onPoiTap(String placeID, String name, LatLng position) {
+    assert(placeID != null);
+    assert(name != null);
+    assert(position != null);
+    if (widget.onPoiTap != null) {
+      widget.onPoiTap(placeID, name, position);
     }
   }
 }

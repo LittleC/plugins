@@ -159,6 +159,7 @@ class Marker {
     this.flat = false,
     this.icon = BitmapDescriptor.defaultMarker,
     this.infoWindow = InfoWindow.noText,
+    this.showInfoWindow = false,
     this.position = const LatLng(0.0, 0.0),
     this.rotation = 0.0,
     this.visible = true,
@@ -202,6 +203,8 @@ class Marker {
   /// The window is displayed when the marker is tapped.
   final InfoWindow infoWindow;
 
+  final bool showInfoWindow;
+
   /// Geographical location of the marker.
   final LatLng position;
 
@@ -234,6 +237,7 @@ class Marker {
     bool flatParam,
     BitmapDescriptor iconParam,
     InfoWindow infoWindowParam,
+    bool showInfoWindowParam,
     LatLng positionParam,
     double rotationParam,
     bool visibleParam,
@@ -253,6 +257,7 @@ class Marker {
       position: positionParam ?? position,
       rotation: rotationParam ?? rotation,
       visible: visibleParam ?? visible,
+      showInfoWindow: showInfoWindowParam ?? showInfoWindow,
       zIndex: zIndexParam ?? zIndex,
       onTap: onTapParam ?? onTap,
       onDragEnd: onDragEndParam ?? onDragEnd,
@@ -279,6 +284,7 @@ class Marker {
     addIfPresent('flat', flat);
     addIfPresent('icon', icon?._toJson());
     addIfPresent('infoWindow', infoWindow?._toJson());
+    addIfPresent('showInfoWindow', showInfoWindow);
     addIfPresent('position', position?._toJson());
     addIfPresent('rotation', rotation);
     addIfPresent('visible', visible);
